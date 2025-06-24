@@ -63,43 +63,96 @@
 
     <!-- Navigation -->
     <nav
-      class="section-nav sticky top-0 z-50 border-b border-gray-200 shadow-lg"
+      class="section-nav sticky top-0 z-50 border-b border-gray-200 bg-white shadow-lg"
     >
-      <div class="max-w-7xl mx-auto px-6">
-        <div
-          class="flex justify-center space-x-2 space-x-reverse py-4 overflow-x-auto"
-        >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16">
+          <!-- شعار الموقع (اختياري) -->
+          <div class="flex-shrink-0">
+            <a href="/" class="text-xl font-bold text-amber-700">شعار الموقع</a>
+          </div>
+
+          <!-- روابط القائمة للشاشات الكبيرة (Desktop) -->
+          <div class="hidden md:flex md:items-center md:space-x-2">
+            <a
+              href="#appetizers"
+              class="nav-link px-4 py-2 rounded-full font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-300"
+              >المعجنات والدبلكس</a
+            >
+            <a
+              href="#mains"
+              class="nav-link px-4 py-2 rounded-full font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-300"
+              >المناقيش والبيتزا</a
+            >
+            <a
+              href="#safaih"
+              class="nav-link px-4 py-2 rounded-full font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-300"
+              >الصفايح</a
+            >
+            <a
+              href="#beverages"
+              class="nav-link px-4 py-2 rounded-full font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-300"
+              >المشروبات</a
+            >
+            <a
+              href="#desserts"
+              class="nav-link px-4 py-2 rounded-full font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700 transition-colors duration-300"
+              >الحلويات</a
+            >
+          </div>
+
+          <!-- زر القائمة للشاشات الصغيرة (Mobile) -->
+          <div class="md:hidden flex items-center">
+            <button
+              id="menu-btn"
+              class="p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
+            >
+              <svg
+                class="h-6 w-6"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- القائمة المنسدلة للجوال (Mobile Menu) -->
+      <div id="mobile-menu" class="hidden md:hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
           <a
             href="#appetizers"
-            class="nav-link flex items-center space-x-2 space-x-reverse px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-700 hover:bg-amber-50 hover:text-amber-700 whitespace-nowrap"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700"
+            >المعجنات والدبلكس</a
           >
-            <span>المعجنات والدبلكس</span>
-          </a>
           <a
             href="#mains"
-            class="nav-link flex items-center space-x-2 space-x-reverse px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-700 hover:bg-amber-50 hover:text-amber-700 whitespace-nowrap"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700"
+            >المناقيش والبيتزا</a
           >
-            <span>المناقيش والبيتزا</span>
-          </a>
           <a
             href="#safaih"
-            class="nav-link flex items-center space-x-2 space-x-reverse px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-700 hover:bg-amber-50 hover:text-amber-700 whitespace-nowrap"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700"
+            >الصفايح</a
           >
-            <span>الصفايح</span>
-          </a>
-
           <a
             href="#beverages"
-            class="nav-link flex items-center space-x-2 space-x-reverse px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-700 hover:bg-amber-50 hover:text-amber-700 whitespace-nowrap"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700"
+            >المشروبات</a
           >
-            <span>المشروبات</span>
-          </a>
           <a
             href="#desserts"
-            class="nav-link flex items-center space-x-2 space-x-reverse px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-700 hover:bg-amber-50 hover:text-amber-700 whitespace-nowrap"
+            class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-700"
+            >الحلويات</a
           >
-            <span>الحلويات</span>
-          </a>
         </div>
       </div>
     </nav>
@@ -291,6 +344,24 @@
         if (navLinks.length > 0) {
           showSection(navLinks[0].getAttribute("href"));
         }
+      });
+
+      // الحصول على زر القائمة والقائمة نفسها
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      // إضافة حدث النقر على الزر
+      menuBtn.addEventListener("click", () => {
+        // تبديل كلاس 'hidden' لإظهار أو إخفاء القائمة
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // (اختياري) إغلاق القائمة عند النقر على أحد الروابط
+      const navLinks = document.querySelectorAll("#mobile-menu .nav-link");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
       });
     </script>
   </body>
